@@ -1,0 +1,11 @@
+# Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
+# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# original note: final copy of configs/ours_llama8b/bct_seed43.yaml: ONLY training.learning_rate (selected) and training.save_dir changed
+base: configs/bct_lora_llama31_8b.yaml
+attct_commit: b3c1896
+set:
+  model.name: /data/hf_home/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659
+  training.learning_rate: 5.0e-05
+  training.save_dir: /data/ct_root/models/published_llama/final_runs/bct_lr5e-5_seed43
+  training.seed: 43
+  data.bct_root: /data/ct_root/shared/bct_llama8b

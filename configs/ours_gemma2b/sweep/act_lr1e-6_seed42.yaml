@@ -1,0 +1,9 @@
+# Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
+# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# original note: sweep copy of configs/ours_gemma2b/act_seed42.yaml: ONLY training.learning_rate and training.save_dir changed
+base: configs/act_sycophancy_gemma2b.yaml
+attct_commit: b3c1896
+set:
+  model.name: /data/hf_home/hub/models--google--gemma-2-2b-it/snapshots/299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8
+  training.save_dir: /data/ct_root/models/published/sweep/act_lr1e-6_seed42
+  training.seed: 42

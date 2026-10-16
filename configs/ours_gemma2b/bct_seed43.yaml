@@ -1,0 +1,10 @@
+# Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
+# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# original note: Copied from configs/bct_lora_gemma3_4b_lr1e6.yaml (c-wei/AttCT @ b3c1896). Changed ONLY: model.name -> local gemma-2-2b-it snapshot, training.save_dir, training.seed, data.bct_root
+base: configs/bct_lora_gemma3_4b_lr1e6.yaml
+attct_commit: b3c1896
+set:
+  model.name: /data/hf_home/hub/models--google--gemma-2-2b-it/snapshots/299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8
+  training.save_dir: /data/ct_root/models/published/gemma2b_bct_seed43
+  training.seed: 43
+  data.bct_root: /data/ct_root/shared/bct_gemma2b

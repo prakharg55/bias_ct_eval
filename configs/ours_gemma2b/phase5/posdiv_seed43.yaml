@@ -1,5 +1,5 @@
 # Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
-# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# replaced (and the keys in `unset` removed). python -m ctcue.training.materialize_configs rebuilds the full file from a local checkout.
 # original note: Phase 5 copy of configs/ours_gemma2b/bct_seed43.yaml: ONLY training.learning_rate (1e-4 = BCT selected), training.save_dir, data.bct_root (posdiv) changed
 base: configs/bct_lora_gemma3_4b_lr1e6.yaml
 attct_commit: b3c1896

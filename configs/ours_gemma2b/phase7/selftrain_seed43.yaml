@@ -1,5 +1,5 @@
 # Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
-# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# replaced (and the keys in `unset` removed). python -m ctcue.training.materialize_configs rebuilds the full file from a local checkout.
 # original note: Self-training control (prereg NOTE SELF-TRAINING CONTROL, 01 Oct 2026): copy of ours_gemma2b/phase5/goldgated_seed43.yaml (= BCT final config at the selected BCT LR) with ONLY data.bct_root (selftrain) and training.save_dir changed
 base: configs/bct_lora_gemma3_4b_lr1e6.yaml
 attct_commit: b3c1896

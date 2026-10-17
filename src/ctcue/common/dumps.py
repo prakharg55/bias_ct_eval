@@ -1,6 +1,13 @@
+"""Load the cued multiple-choice dumps of Chua et al. (2024) as pairs of uncued and cued prompts.
+
+`load_bct_source` reads one dump file and replaces its chain-of-thought instruction with an
+instruction to answer with a single letter. This rewriting also removes the cue from about 24% of
+the suggested-answer rows (those whose cue sits after the instruction). Every script that uses the
+cued prompts of the dumps drops those pairs. The cue battery keeps these questions, because it uses
+only the uncued prompt and inserts its own cues. The module also provides the token ids of each
+answer letter.
 """
-Shared helpers for non-CoT direct-letter extraction from BCT dataset_dumps.
-"""
+
 import re
 import json
 from pathlib import Path
@@ -61,8 +68,7 @@ def reformat_messages(messages):
     final_user_text = out[last_user_idx]["content"]
     if DIRECT_SUFFIX not in final_user_text:
         raise ValueError(
-            f"final user message lacks CoT marker (cannot reformat): "
-            f"...{final_user_text[-200:]!r}"
+            f"final user message lacks CoT marker (cannot reformat): " f"...{final_user_text[-200:]!r}"
         )
     return out
 
@@ -114,6 +120,7 @@ def resolve_model_path(name):
     """
     try:
         from huggingface_hub import snapshot_download
+
         return snapshot_download(name, local_files_only=True)
     except Exception:
         return name
@@ -164,15 +171,17 @@ def load_bct_source(jsonl_path, reformat=True):
         else:
             biased = bq
             unbiased = uq
-        pairs.append({
-            "biased_messages": biased,
-            "unbiased_messages": unbiased,
-            "bias_target": normalize_bias_target(r.get("biased_option")),
-            "correct_letter": r.get("ground_truth"),
-            "bias_name": r.get("bias_name"),
-            "original_dataset": r.get("original_dataset"),
-            "original_question_hash": r.get("original_question_hash"),
-        })
+        pairs.append(
+            {
+                "biased_messages": biased,
+                "unbiased_messages": unbiased,
+                "bias_target": normalize_bias_target(r.get("biased_option")),
+                "correct_letter": r.get("ground_truth"),
+                "bias_name": r.get("bias_name"),
+                "original_dataset": r.get("original_dataset"),
+                "original_question_hash": r.get("original_question_hash"),
+            }
+        )
     return pairs, n_skipped
 
 

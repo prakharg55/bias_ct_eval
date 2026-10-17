@@ -1,15 +1,18 @@
-#!/usr/bin/env python3
+"""Load a model with its LoRA adapter unmerged, for the instruments that use forward hooks.
+
+Returns the Hugging Face model inside the PEFT wrapper. Its target layers carry the adapter (fp32,
+unmerged), and the usual module paths (model.model.layers[...]) stay valid for hooks. Without an
+adapter this is load_merged.load_model.
 """
-Loader v3u (1 Oct 2026; prereg audit NOTE item 1, MERGE FIDELITY): the UNMERGED model for hook-based instruments. pub_load3.load_model
-(merge=False) returns a PeftModel; this returns the HF model inside it (pm.base_model.model), whose target Linear layers are PEFT
-lora.Linear modules carrying the adapter (fp32 adapter weights, unmerged): the same forward computation, with the standard HF module
-paths (model.model.layers[...]) that the hook-based instruments address. merge=True / adapter "none" -> pub_load2 exactly.
-"""
-import pub_load3
-from pub_load2 import MODELS
+
+from ctcue.common import load_peft
+from ctcue.common.load_merged import MODELS
 
 
 def load_model(adapter="none", model="gemma2b", verify=True):
-    tok, m = pub_load3.load_model(adapter, model=model, verify=verify, merge=False)
-    if adapter == "none": return tok, m
-    hf = m.base_model.model; hf.eval(); return tok, hf
+    tok, m = load_peft.load_model(adapter, model=model, verify=verify, merge=False)
+    if adapter == "none":
+        return tok, m
+    hf = m.base_model.model
+    hf.eval()
+    return tok, hf

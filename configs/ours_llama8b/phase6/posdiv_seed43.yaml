@@ -1,5 +1,5 @@
 # Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
-# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# replaced (and the keys in `unset` removed). python -m ctcue.training.materialize_configs rebuilds the full file from a local checkout.
 # original note: Phase 6 copy of configs/ours_llama8b/final/bct_lr5e-5_seed43.yaml: ONLY data.bct_root (posdiv) and training.save_dir changed
 base: configs/bct_lora_llama31_8b.yaml
 attct_commit: b3c1896

@@ -1,5 +1,5 @@
 # Overlay: the training configuration is the file `base` of c-wei/AttCT at `attct_commit`, with the dotted keys in `set`
-# replaced (and the keys in `unset` removed). code/materialize_configs.py rebuilds the full file from a local checkout.
+# replaced (and the keys in `unset` removed). python -m ctcue.training.materialize_configs rebuilds the full file from a local checkout.
 # original note: Copied from configs/best_attct_ablations/llama31_8b/10_qv_rank8_baseline.yaml (c-wei/AttCT @ b3c1896). Changed ONLY: model.name -> local Llama-3.1-8B-Instruct snapshot, training.save_dir, training.seed
 base: configs/best_attct_ablations/llama31_8b/10_qv_rank8_baseline.yaml
 attct_commit: b3c1896
